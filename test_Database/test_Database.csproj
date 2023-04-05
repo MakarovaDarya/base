@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -67,6 +74,9 @@
     <Compile Include="sign_up.Designer.cs">
       <DependentUpon>sign_up.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -81,6 +91,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="sign_up.resx">
       <DependentUpon>sign_up.cs</DependentUpon>
@@ -97,6 +108,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3844444_dot_menu_more_option_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1167966_arrow_arrowleft_back_left_previous_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrowleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataAccess\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
