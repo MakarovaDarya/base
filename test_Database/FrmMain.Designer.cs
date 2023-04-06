@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.calendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -49,8 +49,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,6 +60,9 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.button11 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -72,17 +73,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
-            // monthCalendar1
+            // calendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(233, 261);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 0;
+            this.calendar1.Location = new System.Drawing.Point(243, 266);
+            this.calendar1.Name = "calendar1";
+            this.calendar1.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.panel4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.MaximumSize = new System.Drawing.Size(221, 521);
@@ -174,9 +176,9 @@
             // 
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 0);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(793, 47);
+            this.groupBox1.Size = new System.Drawing.Size(799, 47);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Все";
@@ -219,7 +221,7 @@
             this.panel4.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panel4.Controls.Add(this.button5);
             this.panel4.Controls.Add(this.button4);
-            this.panel4.Location = new System.Drawing.Point(901, 53);
+            this.panel4.Location = new System.Drawing.Point(49, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(153, 106);
             this.panel4.TabIndex = 3;
@@ -238,7 +240,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(0, 0);
+            this.button4.Location = new System.Drawing.Point(0, 6);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(153, 53);
             this.button4.TabIndex = 0;
@@ -250,7 +252,7 @@
             // 
             this.button6.Location = new System.Drawing.Point(940, 261);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(136, 31);
+            this.button6.Size = new System.Drawing.Size(136, 49);
             this.button6.TabIndex = 13;
             this.button6.Text = "Добавить";
             this.button6.UseVisualStyleBackColor = true;
@@ -259,14 +261,15 @@
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(227, 59);
+            this.dataGridView3.Location = new System.Drawing.Point(218, 53);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(849, 192);
+            this.dataGridView3.Size = new System.Drawing.Size(858, 192);
             this.dataGridView3.TabIndex = 14;
             this.dataGridView3.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellClick);
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            this.dataGridView3.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dataGridView3_Scroll);
             // 
             // textBox1
             // 
@@ -275,31 +278,16 @@
             this.textBox1.Size = new System.Drawing.Size(232, 22);
             this.textBox1.TabIndex = 15;
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(702, 291);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(232, 96);
-            this.richTextBox1.TabIndex = 16;
-            this.richTextBox1.Text = "";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(702, 393);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(232, 22);
-            this.textBox2.TabIndex = 17;
-            // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(702, 421);
+            this.textBox3.Location = new System.Drawing.Point(702, 387);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(232, 22);
             this.textBox3.TabIndex = 18;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(702, 449);
+            this.textBox4.Location = new System.Drawing.Point(702, 418);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(232, 22);
             this.textBox4.TabIndex = 19;
@@ -352,9 +340,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(992, 225);
+            this.button7.Location = new System.Drawing.Point(981, 222);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(84, 23);
+            this.button7.Size = new System.Drawing.Size(95, 23);
             this.button7.TabIndex = 25;
             this.button7.Text = "Обновить";
             this.button7.UseVisualStyleBackColor = true;
@@ -362,9 +350,9 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(940, 298);
+            this.button8.Location = new System.Drawing.Point(940, 314);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(136, 28);
+            this.button8.Size = new System.Drawing.Size(136, 49);
             this.button8.TabIndex = 26;
             this.button8.Text = "Удалить";
             this.button8.UseVisualStyleBackColor = true;
@@ -372,46 +360,72 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(940, 332);
+            this.button9.Location = new System.Drawing.Point(940, 369);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(136, 37);
+            this.button9.Size = new System.Drawing.Size(136, 49);
             this.button9.TabIndex = 27;
             this.button9.Text = "Изменить";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(940, 375);
+            this.button10.Location = new System.Drawing.Point(940, 424);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(136, 34);
+            this.button10.Size = new System.Drawing.Size(136, 49);
             this.button10.TabIndex = 28;
             this.button10.Text = "Сохранить";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(702, 449);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(232, 22);
+            this.textBox5.TabIndex = 29;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(703, 294);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(231, 83);
+            this.richTextBox1.TabIndex = 30;
+            this.richTextBox1.Text = "";
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(874, 222);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(101, 23);
+            this.button11.TabIndex = 31;
+            this.button11.Text = "Очистить";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 522);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.calendar1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Name = "FrmMain";
@@ -435,7 +449,7 @@
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar calendar1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button3;
@@ -454,8 +468,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label1;
@@ -467,6 +479,9 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button button11;
     }
 }
 

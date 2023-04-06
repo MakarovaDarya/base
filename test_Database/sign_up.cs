@@ -13,7 +13,7 @@ namespace test_Database
 {
     public partial class sign_up : Form
     {
-        Database dataBase = new Database();
+        Database database = new Database();
         public sign_up()
         {
             InitializeComponent();
@@ -29,9 +29,9 @@ namespace test_Database
 
             string querystring = $"insert into register(login_user,password_user) values('{login}','{password}')";
 
-            SqlCommand command = new SqlCommand(querystring,dataBase.getConnection());
+            SqlCommand command = new SqlCommand(querystring,database.getConnection());
 
-            dataBase.openConnection();
+            database.openConnection();
 
             if (command.ExecuteNonQuery() == 1)
             {
@@ -45,7 +45,7 @@ namespace test_Database
             {
                 MessageBox.Show("Аккаунт не зарегистрирован");
             }
-            dataBase.closeConnection();
+            database.closeConnection();
 
         }
 
@@ -57,7 +57,7 @@ namespace test_Database
             DataTable table = new DataTable();
             string querystring = $"select id_user,login_user,password_user from register where login_user='{loginU} and password_user='{passwordU}'";
 
-            SqlCommand command = new SqlCommand(querystring, dataBase.getConnection());
+            SqlCommand command = new SqlCommand(querystring, database.getConnection());
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
