@@ -36,12 +36,12 @@ namespace test_Database
         {
             dataGridView3.CurrentCell.Value=dtp.Text.ToString();
         }
-        private bool check;
         private void CreateColumns()
         {
             dataGridView3.Columns.Add("id", "id");
             dataGridView3.Columns.Add("descriptions", "Описание");
             dataGridView3.Columns.Add("categoryId", "Тип");
+            dataGridView3.Columns.Add("groups", "Группа");
             dataGridView3.Columns.Add("StartDate", "Срок");
             dataGridView3.Columns.Add("EndDate", "Дата назначения");
             dataGridView3.Columns.Add("IsNew", String.Empty);
@@ -51,6 +51,7 @@ namespace test_Database
         {
             textBox1.Text = "";
             richTextBox1.Text = "";
+            textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
             textBox5.Text = "";
@@ -58,15 +59,15 @@ namespace test_Database
 
         private void ReadSingleRow(DataGridView dgw, IDataRecord record)
         {
-            dgw.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetString(2), record.GetDateTime(3), record.GetDateTime(4), RowState.ModifiedNew);
+            dgw.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetDateTime(4), record.GetDateTime(5), RowState.ModifiedNew);
         }
         private void RefreshDatagrid(DataGridView dgw)
         {
             dgw.Rows.Clear();
-
-            string queryString= $"select * from Personal";
+            string queryString= $"select * from to_do_list";
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
+            
 
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -88,88 +89,8 @@ namespace test_Database
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
-
             CreateColumns();
             RefreshDatagrid(dataGridView3);
-        }
-        
-        
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            timer1.Start();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (check)
-            {
-                panel1.Width += 10;
-                if (panel1.Size == panel1.MaximumSize)
-                {
-                    pictureBox1.Left += 110;
-                    timer1.Stop();
-                    check = false;
-                    pictureBox1.Image = Resources.arrowleft;
-                }
-            }
-            else
-            {
-                panel1.Width -= 10;
-                if (panel1.Size == panel1.MinimumSize)
-                {
-                    pictureBox1.Left = 23;
-                    timer1.Stop();
-                    check = true;
-
-                    pictureBox1.Image = Resources.dot;
-                }
-            }
-        }
-        private void ShowMenuPopup()
-        {
-            if (panel4.Visible == false)
-            {
-                panel4.Visible = true;
-            }
-            else
-            {
-                panel4.Visible = false;
-            }
-        }
-
-
-
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            ShowMenuPopup();
         }
 
         private void FrmMain_Shown(object sender, EventArgs e)
@@ -182,18 +103,6 @@ namespace test_Database
             Add addfrm = new Add();
             addfrm.Show();
         }
-
-
-        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -221,9 +130,10 @@ namespace test_Database
 
                 textBox1.Text = row.Cells[0].Value.ToString();
                 richTextBox1.Text = row.Cells[1].Value.ToString();
-                textBox3.Text = row.Cells[2].Value.ToString();
-                textBox4.Text = row.Cells[3].Value.ToString();
-                textBox5.Text = row.Cells[4].Value.ToString();
+                textBox2.Text = row.Cells[2].Value.ToString();
+                textBox3.Text = row.Cells[3].Value.ToString();
+                textBox4.Text = row.Cells[4].Value.ToString();
+                textBox5.Text = row.Cells[5].Value.ToString();
             }
         }
 
@@ -232,14 +142,14 @@ namespace test_Database
             database.openConnection();
             for (int index = 0; index < dataGridView3.Rows.Count; index++)
             {
-                var rowState = (RowState)dataGridView3.Rows[index].Cells[5].Value;
+                var rowState = (RowState)dataGridView3.Rows[index].Cells[6].Value;
                 if (rowState == RowState.Existed) 
                     continue;
 
                 if (rowState == RowState.Deleted)
                 {
                     var id = Convert.ToInt32(dataGridView3.Rows[index].Cells[0].Value);
-                    var deleteQuery = $"delete from Personal where id = {id}";
+                    var deleteQuery = $"delete from to_do_list where id = {id}";
 
                     var command = new SqlCommand(deleteQuery, database.getConnection());
                     command.ExecuteNonQuery();
@@ -251,10 +161,11 @@ namespace test_Database
                     var id = dataGridView3.Rows[index].Cells[0].Value.ToString();
                     var descr = dataGridView3.Rows[index].Cells[1].Value.ToString();
                     var categ = dataGridView3.Rows[index].Cells[2].Value.ToString();
-                    var start = dataGridView3.Rows[index].Cells[3].Value.ToString();
-                    var end = dataGridView3.Rows[index].Cells[4].Value.ToString();
+                    var group = dataGridView3.Rows[index].Cells[3].Value.ToString();
+                    var start = dataGridView3.Rows[index].Cells[4].Value.ToString();
+                    var end = dataGridView3.Rows[index].Cells[5].Value.ToString();
 
-                    var changeQuery = $"update Personal set descriptions='{descr}', categoryId='{categ}',StartDate='{start}',EndDate='{end}' where id= '{id}'";
+                    var changeQuery = $"update to_do_list set descriptions='{descr}', categoryId='{categ}',groups='{group}',StartDate='{start}',EndDate='{end}' where id= '{id}'";
                     var command = new SqlCommand(changeQuery, database.getConnection());
                     command.ExecuteNonQuery();
                 }
@@ -278,11 +189,6 @@ namespace test_Database
             Update();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Change()
         {
             var selectedRowIndex = dataGridView3.CurrentCell.RowIndex;
@@ -290,10 +196,11 @@ namespace test_Database
             var id = textBox1.Text;
             var descr = richTextBox1.Text;
             var categ = textBox3.Text;
-            var start = textBox4.Text;
+            var group = textBox4.Text;
+            var start = textBox5.Text;
             var end = textBox5.Text;
-            dataGridView3.Rows[selectedRowIndex].SetValues(descr, categ, start, end);
-            dataGridView3.Rows[selectedRowIndex].Cells[5].Value = RowState.Modified;
+            dataGridView3.Rows[selectedRowIndex].SetValues(descr, categ, group, start, end);
+            dataGridView3.Rows[selectedRowIndex].Cells[6].Value = RowState.Modified;
         }
         private void button9_Click(object sender, EventArgs e)
         {

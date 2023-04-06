@@ -13,19 +13,12 @@ namespace test_Database
 {
     public partial class Add : Form
     {
-       
-
         Database database = new Database();
         public Add()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            
-
         }
-        
-
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -34,10 +27,11 @@ namespace test_Database
 
             var desc = richTextBox1.Text;
             var cat = textBox2.Text;
+            var group = textBox1.Text;
             var Start = dateTimePicker1.Text;
             var End = dateTimePicker2.Text; 
 
-            var addQuery = $"insert into Personal (descriptions, categoryId, StartDate, EndDate) values ('{desc}','{cat}','{Start}','{End}')";
+            var addQuery = $"insert into to_do_list (descriptions, categoryId, groups, StartDate, EndDate) values ('{desc}','{cat}','{group}','{Start}','{End}')";
             var command = new SqlCommand(addQuery, database.getConnection());
             command.ExecuteNonQuery();
 
@@ -55,6 +49,11 @@ namespace test_Database
             {
                 dateTimePicker1.CustomFormat = " ";
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

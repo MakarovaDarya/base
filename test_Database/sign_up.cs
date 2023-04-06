@@ -36,7 +36,7 @@ namespace test_Database
             if (command.ExecuteNonQuery() == 1)
             {
                 MessageBox.Show("Аккаунт успешно создан!","Успешно!");
-                Log_in frm_login = new Log_in();
+                loginn frm_login = new loginn();
                 this.Hide();
                 frm_login.ShowDialog();
 
